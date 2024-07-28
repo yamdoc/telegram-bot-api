@@ -1,0 +1,24 @@
+services:
+  telegram-bot-api:
+    image: yam0/telegram-bot-api
+    container_name: telegram-bot-api-${TG_API_PORT}
+    volumes:
+      - ${TG_API_DIR}:${TG_API_DIR}
+    ports:
+      - ${TG_API_PORT}:${TG_API_PORT}
+    environment:
+      - TG_API_ID
+      - TG_API_HASH
+      - TG_API_DIR
+      - TG_API_PORT=8081
+      - TG_API_LOG_MAX_SIZE=10000000 # 10mb
+      - TG_API_LOCAL=--local
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: 2.00
+          memory: 256M
+        reservations:
+          cpus: 0.10
+          memory: 32M
